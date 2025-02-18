@@ -1,0 +1,88 @@
+/* Fullscreen container */
+.home-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(145deg, #a8c0ff, #3f72b5); /* Soft Gradient */
+    color: white;
+    padding: 20px;
+}
+
+/* Hero Section */
+h1 {
+    font-size: 3.5rem;  /* Slightly smaller */
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Add soft, subtle separation between content */
+hr {
+    border: 0;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.5);
+    width: 50%;
+    margin: 30px 0;
+    border-radius: 2px;
+}
+
+/* Centered button group - Horizontal buttons */
+.button-group {
+    display: flex;
+    gap: 20px;  /* Spacing between buttons */
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 700px;  /* Make the button group a bit wider */
+}
+
+/* Standard Button Style */
+.button {
+    padding: 10px 20px;  /* Adjusted padding for smaller buttons */
+    font-size: 1rem;  /* Slightly smaller text */
+    color: #fff;
+    background: #3f72b5; /* Soft blue */
+    border: 2px solid #3f72b5;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: auto; /* Ensure the button is not full width */
+    min-width: 150px;  /* Ensure button doesn't get too small */
+}
+
+.button:hover {
+    background: #fff;
+    color: #3f72b5;
+    border-color: #3f72b5;
+}
+
+/* Admin button - Next to login and signup */
+.admin-button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.admin-logo {
+    width: 30px;  /* Smaller logo */
+    height: 30px;
+    filter: brightness(0) invert(1); /* White icon */
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+    .home-container {
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .button-group {
+        flex-direction: row;  /* Horizontal buttons */
+        gap: 20px;  /* Space between buttons */
+    }
+}
