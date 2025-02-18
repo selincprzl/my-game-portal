@@ -17,21 +17,31 @@ export class SignupComponent {
   constructor(private firebaseService: FirebaseService, private router: Router) {}
 
   register(): void {
-    if (!this.email || !this.password || !this.name) {
-      alert('Email and password cannot be empty.');
+    if (!this.name || !this.email || !this.emailconfirm || !this.password || !this.passwordconfirm) {
+      alert('All fields are required.');
       return;
     }
-
-    // Create user and store data in Firebase
+  
+    if (this.email !== this.emailconfirm) {
+      alert('Emails do not match.');
+      return;
+    }
+  
+    if (this.password !== this.passwordconfirm) {
+      alert('Passwords do not match.');
+      return;
+    }
+  
     this.firebaseService.registerUser(this.email, this.password, this.name)
       .then(() => {
         alert('Signup successful!');
-        this.router.navigate(['/login']);  // Redirect to login page after successful signup
+        this.router.navigate(['/login']);
       })
       .catch((error) => {
         alert('Error: ' + error.message);
       });
   }
+  
 
   goToLogin(): void {
     this.router.navigate(['/login']); 
