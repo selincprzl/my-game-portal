@@ -4,11 +4,17 @@ import { CommonModule } from '@angular/common';  // Import CommonModule
 import { AppComponent } from './app.component';
 import { SignupComponent } from './signup/signup.component';  // Import your component
 import { FormsModule } from '@angular/forms'; // Import FormsModule for ngModel binding
-
+import { LoginComponent } from './login/login.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { AdminLoginComponent } from './admin-login/admin-login.component';
 @NgModule({
   declarations: [
     AppComponent,
-    SignupComponent
+    SignupComponent,
+    LoginComponent,
+    AdminDashboardComponent,
+    AdminLoginComponent
+  
   ],
   imports: [
     BrowserModule,

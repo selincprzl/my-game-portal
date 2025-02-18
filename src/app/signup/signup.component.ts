@@ -31,6 +31,8 @@ export class SignupComponent {
       alert('Passwords do not match.');
       return;
     }
+    const isAdmin = false; // Set to true if you want the user to be an admin
+
   
     this.firebaseService.registerUser(this.email, this.password, this.name)
       .then(() => {

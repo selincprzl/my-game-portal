@@ -16,5 +16,9 @@ export class HomeComponent {
   goToSignup(): void {
     this.router.navigate(['/signup']);
   }
+
+  goToAdmin(): void {
+    this.router.navigate(['/admin-login']);
+  }
   
 }
