@@ -3,24 +3,27 @@
     <h2>Signup</h2>
   
     <div class="input-group">
-      <input type="name" [value]="name" (input)="name = $event.target.value" placeholder="Enter Username" />
+      <input type="text" [value]="name" (input)="updateName($event)" placeholder="Enter Username" />
     </div>
     
     <div class="input-group">
-      <input type="email" [value]="email" (input)="email = $event.target.value" placeholder="Enter E-mail" />
+      <input type="email" [value]="email" (input)="updateEmail($event)" placeholder="Enter E-mail" />
     </div>
 
     <div class="input-group">
-      <input type="emailconfirm" [value]="emailconfirm" (input)="emailconfirm = $event.target.value" placeholder="Confirm E-mail" />
-    </div>
-    <div class="input-group">
-      <input type="password" [value]="password" (input)="password = $event.target.value" placeholder="Password" />
+      <input type="email" [value]="emailconfirm" (input)="updateEmailConfirm($event)" placeholder="Confirm E-mail" />
     </div>
     
     <div class="input-group">
-      <input type="password" [value]="passwordconfirm" (input)="passwordconfirm = $event.target.value" placeholder="Confirm Password" />
+      <input type="password" [value]="password" (input)="updatePassword($event)" placeholder="Password" />
     </div>
+    
+    <div class="input-group">
+      <input type="password" [value]="passwordconfirm" (input)="updatePasswordConfirm($event)" placeholder="Confirm Password" />
+    </div>
+    
     <button class="signup-btn" (click)="register()">Signup</button>
+    
     <p class="login-text">
       Already have an account? 
       <button class="login-btn" (click)="goToLogin()">Login</button>

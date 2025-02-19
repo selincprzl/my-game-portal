@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';  // Import Router
+import { Router } from '@angular/router';
 import { FirebaseService } from '../services/firebase.service';
 import { signInWithEmailAndPassword, getAuth } from 'firebase/auth';
 
@@ -14,8 +14,18 @@ export class LoginComponent {
 
   constructor(private router: Router, private firebaseService: FirebaseService) {}
 
+  // Update email value
+  updateEmail(event: any): void {
+    this.email = event.target.value;
+  }
+
+  // Update password value
+  updatePassword(event: any): void {
+    this.password = event.target.value;
+  }
+
+  // Login function
   login(): void {
-    // Validate if email and password are not empty
     if (!this.email || !this.password) {
       alert('Email and password cannot be empty.');
       return;
@@ -23,28 +33,19 @@ export class LoginComponent {
 
     const auth = getAuth();
 
-    // Use signInWithEmailAndPassword from Firebase Auth (client-side SDK)
     signInWithEmailAndPassword(auth, this.email, this.password)
       .then((userCredential) => {
         console.log('Login successful:', userCredential.user);
-        // Handle successful login, such as redirecting the user
+        this.router.navigate(['/dashboard']);
       })
       .catch((error) => {
         console.error('Error during login:', error.code, error.message);
-
-        if (error.code === 'auth/invalid-email') {
-          alert('Invalid email format');
-        } else if (error.code === 'auth/wrong-password') {
-          alert('Incorrect password');
-        } else if (error.code === 'auth/user-not-found') {
-          alert('No user found with this email address.');
-        } else {
-          alert('Error: ' + error.message);
-        }
+        alert('Error: ' + error.message);
       });
   }
 
+  // Navigate to signup page
   goToSignup(): void {
-    this.router.navigate(['/signup']);  // Navigate to the signup page
+    this.router.navigate(['/signup']);
   }
 }

@@ -14,6 +14,18 @@ export class AdminLoginComponent {
 
   constructor(private router: Router, private firebaseService: FirebaseService) {}
 
+  // Handle email input change
+  updateEmail(event: Event): void {
+    const target = event.target as HTMLInputElement;
+    this.email = target.value;
+  }
+
+  // Handle password input change
+  updatePassword(event: Event): void {
+    const target = event.target as HTMLInputElement;
+    this.password = target.value;
+  }
+
   adminLogin(): void {
     if (!this.email || !this.password) {
       alert('Email and password cannot be empty.');

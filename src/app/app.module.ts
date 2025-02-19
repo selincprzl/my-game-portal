@@ -7,21 +7,18 @@ import { FormsModule } from '@angular/forms'; // Import FormsModule for ngModel 
 import { LoginComponent } from './login/login.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { AdminLoginComponent } from './admin-login/admin-login.component';
+import { bootstrapApplication } from '@angular/platform-browser';
 @NgModule({
-  declarations: [
+  imports: [
     AppComponent,
     SignupComponent,
     LoginComponent,
     AdminDashboardComponent,
-    AdminLoginComponent
-  
-  ],
-  imports: [
+    AdminLoginComponent,
     BrowserModule,
     CommonModule,  // Add CommonModule here
     FormsModule  // Add FormsModule for two-way data binding
   ],
   providers: [],
-  bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -8,13 +8,38 @@ import { Router } from '@angular/router';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent {
-  name: string= '';
+  name: string = '';
   email: string = '';
   emailconfirm: string = '';
   password: string = '';
   passwordconfirm: string = '';
 
   constructor(private firebaseService: FirebaseService, private router: Router) {}
+
+  // Update name value
+  updateName(event: any): void {
+    this.name = event.target.value;
+  }
+
+  // Update email value
+  updateEmail(event: any): void {
+    this.email = event.target.value;
+  }
+
+  // Update email confirm value
+  updateEmailConfirm(event: any): void {
+    this.emailconfirm = event.target.value;
+  }
+
+  // Update password value
+  updatePassword(event: any): void {
+    this.password = event.target.value;
+  }
+
+  // Update password confirm value
+  updatePasswordConfirm(event: any): void {
+    this.passwordconfirm = event.target.value;
+  }
 
   register(): void {
     if (!this.name || !this.email || !this.emailconfirm || !this.password || !this.passwordconfirm) {
@@ -31,9 +56,9 @@ export class SignupComponent {
       alert('Passwords do not match.');
       return;
     }
-    const isAdmin = false; // Set to true if you want the user to be an admi
 
-  
+    const isAdmin = false; // Set to true if you want the user to be an admin
+
     this.firebaseService.registerUser(this.email, this.password, this.name)
       .then(() => {
         alert('Signup successful!');
@@ -43,9 +68,8 @@ export class SignupComponent {
         alert('Error: ' + error.message);
       });
   }
-  
 
   goToLogin(): void {
-    this.router.navigate(['/login']); 
-}
+    this.router.navigate(['/login']);
+  }
 }
