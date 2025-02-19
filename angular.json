@@ -62,7 +62,8 @@
               "buildTarget": "my-game-portal:build:production"
             },
             "development": {
-              "buildTarget": "my-game-portal:build:development"
+              "buildTarget": "my-game-portal:build:development",
+              "hmr": false
             }
           },
           "defaultConfiguration": "development"
