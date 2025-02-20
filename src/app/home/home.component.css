@@ -7,21 +7,46 @@
     align-items: center;
     text-align: center;
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(145deg, #a8c0ff, #3f72b5); /* Soft Gradient */
+    background: linear-gradient(145deg, #a8c0ff, #3f72b5);
     color: white;
     padding: 20px;
+    position: relative; /* Important for absolute positioning of the admin button */
+}
+
+/* Admin button positioned at the top-right */
+.admin-button-container {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+/* Style for the Admin button */
+.admin-button {
+    background: none;
+    color: white;
+    border: 2px solid white;
+    padding: 8px 16px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+}
+
+.admin-button:hover {
+    background: white;
+    color: #3f72b5;
 }
 
 /* Hero Section */
 h1 {
-    font-size: 3.5rem;  /* Slightly smaller */
+    font-size: 3.5rem;
     font-weight: 700;
     margin-bottom: 20px;
     text-transform: uppercase;
     letter-spacing: 2px;
 }
 
-/* Add soft, subtle separation between content */
+/* Separator */
 hr {
     border: 0;
     height: 2px;
@@ -31,28 +56,28 @@ hr {
     border-radius: 2px;
 }
 
-/* Centered button group - Horizontal buttons */
+/* Centered button group */
 .button-group {
     display: flex;
-    gap: 20px;  /* Spacing between buttons */
+    gap: 20px;
     justify-content: center;
     align-items: center;
     width: 100%;
-    max-width: 700px;  /* Make the button group a bit wider */
+    max-width: 700px;
 }
 
 /* Standard Button Style */
 .button {
-    padding: 10px 20px;  /* Adjusted padding for smaller buttons */
-    font-size: 1rem;  /* Slightly smaller text */
+    padding: 10px 20px;
+    font-size: 1rem;
     color: #fff;
-    background: #3f72b5; /* Soft blue */
+    background: #3f72b5;
     border: 2px solid #3f72b5;
     border-radius: 25px;
     cursor: pointer;
     transition: all 0.3s ease;
-    width: auto; /* Ensure the button is not full width */
-    min-width: 150px;  /* Ensure button doesn't get too small */
+    width: auto;
+    min-width: 150px;
 }
 
 .button:hover {
@@ -61,28 +86,20 @@ hr {
     border-color: #3f72b5;
 }
 
-/* Admin button - Next to login and signup */
-.admin-button {
-    background: transparent;
-    border: none;
-    cursor: pointer;
-}
-
-.admin-logo {
-    width: 30px;  /* Smaller logo */
-    height: 30px;
-    filter: brightness(0) invert(1); /* White icon */
-}
-
 /* Responsive Design */
-@media (min-width: 768px) {
+@media (max-width: 768px) {
     .home-container {
         flex-direction: column;
         justify-content: center;
     }
 
     .button-group {
-        flex-direction: row;  /* Horizontal buttons */
-        gap: 20px;  /* Space between buttons */
+        flex-direction: row;
+        gap: 20px;
+    }
+
+    .admin-button-container {
+        top: 10px;
+        right: 10px;
     }
 }
