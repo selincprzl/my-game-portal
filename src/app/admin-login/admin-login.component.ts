@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FirebaseService } from '../services/firebase.service';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 
 @Component({
   selector: 'app-admin-login',
@@ -42,7 +42,8 @@ export class AdminLoginComponent {
           if (isAdmin) {
             this.router.navigate(['/admin-dashboard']);
           } else {
-            alert('You are not an admin!');
+            alert('You are not an admin! Logging out...');
+            signOut(auth); // Logout the user if not an admin
           }
         });
       })

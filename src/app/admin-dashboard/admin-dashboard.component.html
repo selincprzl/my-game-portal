@@ -1,1 +1,31 @@
-<p>admin-dashboard works!</p>
+<div class="dashboard-container">
+  
+  <!-- Loading Spinner -->
+  <div *ngIf="isLoading" class="spinner">Loading...</div>
+
+  <!-- User List -->
+  <div *ngIf="!isLoading">
+    <div *ngFor="let user of users" class="user-card">
+      <div class="user-info">
+        <div class="user-name">{{ user.name }}</div>
+        <div class="user-email">{{ user.email }}</div>
+        <div class="user-status" [ngClass]="{'is-admin': user.isAdmin}">
+          {{ user.isAdmin ? 'Admin' : 'User' }}
+        </div>
+      </div>
+      <div class="user-actions">
+        <button 
+          *ngIf="!user.isAdmin" 
+          class="grant-admin-btn" 
+          (click)="grantAdminRights(user.uid)">
+          Grant Admin Rights
+        </button>
+        <button 
+          class="delete-btn"
+          (click)="deleteUser(user.uid)">
+          Delete User
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

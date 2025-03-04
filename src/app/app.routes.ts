@@ -4,6 +4,7 @@ import { SignupComponent } from './signup/signup.component';
 import { HomeComponent } from './home/home.component';  
 import { AdminLoginComponent } from './admin-login/admin-login.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { AdminGuard } from './guards/admin.guard';
 
 
 export const routes: Routes = [
@@ -12,7 +13,8 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'admin-login', component: AdminLoginComponent},
-  { path: 'admin-dashboard', component: AdminDashboardComponent},
+  { path: 'admin-dashboard', component: AdminDashboardComponent, canActivate: [AdminGuard] },
+
 
 
  

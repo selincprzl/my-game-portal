@@ -17,7 +17,8 @@ import { bootstrapApplication } from '@angular/platform-browser';
     AdminLoginComponent,
     BrowserModule,
     CommonModule,  // Add CommonModule here
-    FormsModule  // Add FormsModule for two-way data binding
+    FormsModule,  // Add FormsModule for two-way data binding
+    NgModule,
   ],
   providers: [],
 })

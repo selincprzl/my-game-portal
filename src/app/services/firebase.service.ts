@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
-import { getDatabase, ref, set, get } from 'firebase/database';
+import { getDatabase, ref, set, get, update } from 'firebase/database';
 import { environment } from '../environments/environment';
 import { initializeApp } from 'firebase/app';
 
@@ -13,27 +13,23 @@ const database = getDatabase(app);
   providedIn: 'root'
 })
 export class FirebaseService {
-  
-  // Register user and check if they are a hardcoded admin
+
+  // Register user
   registerUser(email: string, password: string, name: string): Promise<any> {
     return createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        const isAdmin = this.isHardcodedAdmin(email); // Check if the user is an admin
-        this.saveUserData(user.uid, name, email, isAdmin);
-      })
-      .catch((error) => {
-        console.error('Error during user registration:', error);
-        throw new Error(error.message);
+        const isAdmin = FirebaseService.isHardcodedAdmin(email);
+        return this.saveUserData(user.uid, name, email, isAdmin).then(() => ({ uid: user.uid, isAdmin }));
       });
   }
 
-  // Save user data in Firebase Realtime Database
-  private saveUserData(uid: string, name: string, email: string, isAdmin: boolean): void {
-    set(ref(database, 'users/' + uid), {
-      name: name,
-      email: email,
-      isAdmin: isAdmin,  // Store isAdmin property in the database
+  // Save user data
+  private saveUserData(uid: string, name: string, email: string, isAdmin: boolean): Promise<void> {
+    return set(ref(database, 'users/' + uid), {
+      name,
+      email,
+      isAdmin,
       createdAt: new Date().toISOString()
     });
   }
@@ -41,6 +37,23 @@ export class FirebaseService {
   // Login user
   loginUser(email: string, password: string): Promise<any> {
     return signInWithEmailAndPassword(auth, email, password);
+  }
+
+  // Get all users
+  getAllUsers(): Promise<any[]> {
+    const usersRef = ref(database, 'users/');
+    return get(usersRef).then((snapshot) => {
+      if (snapshot.exists()) {
+        const usersData = snapshot.val();
+        return Object.keys(usersData).map(uid => ({ uid, ...usersData[uid] }));
+      }
+      return [];
+    });
+  }
+
+  // Grant admin rights
+  grantAdminRights(uid: string): Promise<void> {
+    return update(ref(database, 'users/' + uid), { isAdmin: true });
   }
 
   // Check if a user is an admin
@@ -58,9 +71,14 @@ export class FirebaseService {
     });
   }
 
-  // Helper function to check if an email belongs to a hardcoded admin
-  private isHardcodedAdmin(email: string): boolean {
-    const adminEmails = ["usama@usama.dk", "martin@martin.dk", "selin@selin.dk"];
+  // Hardcoded superuser
+  private static isHardcodedAdmin(email: string): boolean {
+    const adminEmails = ["selin@selin.dk"];
     return adminEmails.includes(email);
+  }
+
+  deleteUser(uid: string): Promise<void> {
+    const userRef = ref(database, 'users/' + uid);
+    return set(userRef, null);  // This deletes the user from the database
   }
 }

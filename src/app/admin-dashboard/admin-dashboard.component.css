@@ -1,0 +1,135 @@
+/* General Dashboard Layout */
+.dashboard-container {
+    width: 80%;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f4f7fb;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  h1 {
+    text-align: center;
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  /* Search Bar Styling */
+  .search-bar {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .search-bar input {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .search-bar input:focus {
+    border-color: #4CAF50; /* Highlight search bar border on focus */
+    outline: none;
+  }
+  
+  /* Loading Spinner */
+  .spinner {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 1.5rem;
+  }
+  
+  /* User Card Layout */
+  .user-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .user-card:hover {
+    background-color: #f9f9f9;
+  }
+  
+  .user-info {
+    flex: 1;
+  }
+  
+  .user-name,
+  .user-email {
+    font-size: 1.1rem;
+    color: #333;
+  }
+  
+  .user-status {
+    font-weight: bold;
+    color: #999;
+  }
+  
+  .is-admin {
+    color: #4CAF50; /* Green for admins */
+  }
+  
+  /* Button Styling */
+  .grant-admin-btn {
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .grant-admin-btn:hover {
+    background-color: #45a049;
+  }
+  
+  /* Delete Button Styling */
+  .delete-btn {
+    padding: 8px 16px;
+    background-color: #f44336; /* Red for delete */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .delete-btn:hover {
+    background-color: #e53935; /* Darker red on hover */
+  }
+  
+  /* User Actions Section */
+  .user-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+  }
+  
+  /* Mobile Responsiveness */
+  @media (max-width: 768px) {
+    .dashboard-container {
+      width: 95%;
+      padding: 10px;
+    }
+  
+    .user-card {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .user-info {
+      margin-bottom: 10px;
+    }
+  }
+  
