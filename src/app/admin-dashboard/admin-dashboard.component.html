@@ -1,11 +1,10 @@
 <div class="dashboard-container">
-  
   <!-- Loading Spinner -->
   <div *ngIf="isLoading" class="spinner">Loading...</div>
 
   <!-- User List -->
   <div *ngIf="!isLoading">
-    <div *ngFor="let user of users" class="user-card">
+    <div *ngFor="let user of filteredUsers" class="user-card">
       <div class="user-info">
         <div class="user-name">{{ user.name }}</div>
         <div class="user-email">{{ user.email }}</div>
@@ -14,18 +13,22 @@
         </div>
       </div>
       <div class="user-actions">
-        <button 
-          *ngIf="!user.isAdmin" 
-          class="grant-admin-btn" 
-          (click)="grantAdminRights(user.uid)">
+        <button *ngIf="!user.isAdmin" class="grant-admin-btn" (click)="grantAdminRights(user.uid)">
           Grant Admin Rights
         </button>
-        <button 
-          class="delete-btn"
-          (click)="deleteUser(user.uid)">
+        <button class="delete-btn" (click)="deleteUser(user.uid)">
           Delete User
         </button>
       </div>
     </div>
   </div>
+</div>
+
+<!-- Search Bar -->
+<div class="search-bar">
+  <input 
+    type="text" 
+    placeholder="Search by email..." 
+    (input)="onSearchInput($event)" 
+  />
 </div>
