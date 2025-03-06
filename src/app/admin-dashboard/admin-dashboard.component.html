@@ -1,4 +1,15 @@
 <div class="dashboard-container">
+  <!-- Search Bar -->
+  <div class="search-bar-container">
+    <div class="search-bar">
+      <input 
+        type="text" 
+        placeholder="Search by email..." 
+        (input)="onSearchInput($event)" 
+      />
+    </div>
+  </div>
+
   <!-- Loading Spinner -->
   <div *ngIf="isLoading" class="spinner">Loading...</div>
 
@@ -22,13 +33,4 @@
       </div>
     </div>
   </div>
-</div>
-
-<!-- Search Bar -->
-<div class="search-bar">
-  <input 
-    type="text" 
-    placeholder="Search by email..." 
-    (input)="onSearchInput($event)" 
-  />
 </div>
