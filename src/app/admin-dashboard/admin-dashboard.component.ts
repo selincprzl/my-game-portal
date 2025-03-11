@@ -60,6 +60,16 @@ export class AdminDashboardComponent {
     this.fetchUsers();
   }
 
+  async toggleAdminRights(user: User) {
+    if (user.isAdmin) {
+      await this.firebaseService.revokeAdminRights(user.uid);
+    } else {
+      await this.firebaseService.grantAdminRights(user.uid);
+    }
+    this.fetchUsers();  // Refresh the user list
+  }
+  
+  
   async deleteUser(userId: string) {
     if (confirm('Are you sure you want to delete this user?')) {
       await this.firebaseService.deleteUser(userId);

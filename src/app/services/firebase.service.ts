@@ -76,6 +76,10 @@ export class FirebaseService {
     const adminEmails = ["selin@selin.dk"];
     return adminEmails.includes(email);
   }
+  
+  revokeAdminRights(uid: string): Promise<void> {
+    return update(ref(database, 'users/' + uid), { isAdmin: false });
+  }
 
   deleteUser(uid: string): Promise<void> {
     const userRef = ref(database, 'users/' + uid);

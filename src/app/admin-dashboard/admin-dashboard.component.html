@@ -10,8 +10,6 @@
     </div>
   </div>
 
-  <!-- Loading Spinner -->
-  <div *ngIf="isLoading" class="spinner">Loading...</div>
 
   <!-- User List -->
   <div *ngIf="!isLoading">
@@ -24,12 +22,18 @@
         </div>
       </div>
       <div class="user-actions">
-        <button *ngIf="!user.isAdmin" class="grant-admin-btn" (click)="grantAdminRights(user.uid)">
-          Grant Admin Rights
-        </button>
-        <button class="delete-btn" (click)="deleteUser(user.uid)">
-          Delete User
-        </button>
+        <!-- Toggle Switch -->
+        <label class="switch">
+          <input 
+            type="checkbox" 
+            [checked]="user.isAdmin" 
+            (change)="toggleAdminRights(user)"
+          />
+          <span class="slider"></span>
+        </label>
+
+        <!-- Delete Button -->
+        <button class="delete-button" (click)="deleteUser(user.uid)">Delete</button>
       </div>
     </div>
   </div>
