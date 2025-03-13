@@ -6,10 +6,11 @@ import { AdminLoginComponent } from './admin-login/admin-login.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { AdminGuard } from './guards/admin.guard';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { AdminChatComponent } from './admin-chat/admin-chat.component';
-import { AdminGamesComponent } from './admin-games/admin-games.component'; 
-import { AdminLeaderboardComponent } from './admin-leaderboard/admin-leaderboard.component';
-
+import { ChatComponent } from './chat/chat.component';
+import { GamesComponent } from './games/games.component';
+import { LeaderboardComponent } from './leaderboard/leaderboard.component';
+import { RouterModule } from '@angular/router';
+import { NavbarComponent } from './navbar/navbar.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -19,10 +20,10 @@ export const routes: Routes = [
   { path: 'admin-login', component: AdminLoginComponent},
   { path: 'admin-dashboard', component: AdminDashboardComponent, canActivate: [AdminGuard] },
   { path: 'dashboard', component: DashboardComponent },  // New route
-  { path: 'admin-chat', component: AdminChatComponent },  
-  { path: 'admin-games', component: AdminGamesComponent },  
-  { path: 'admin-leaderboard', component: AdminLeaderboardComponent },  
-
+  { path: 'chat', component: ChatComponent },  
+  { path: 'games', component: GamesComponent },  
+  { path: 'leaderboard', component: LeaderboardComponent },  
+  { path: 'navbar', component: NavbarComponent },  
 
 
 

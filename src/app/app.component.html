@@ -1,13 +1,7 @@
-<!-- Navbar visible only in admin routes -->
-<div *ngIf="isAdminRoute()">
-  <div class="navbar">
-    <ul>
-      <li><a routerLink="/admin-dashboard" routerLinkActive="active">Administration</a></li>
-      <li><a routerLink="/admin-chat" routerLinkActive="active">Chat</a></li>
-      <li><a routerLink="/admin-games" routerLinkActive="active">Games</a></li>
-      <li><a routerLink="/admin-leaderboard" routerLinkActive="active">Leaderboard</a></li>
-    </ul>
-  </div>
-</div>
+<!-- Add the Navbar component -->
+<app-navbar *ngIf="showNavbar"></app-navbar>
 
-<router-outlet></router-outlet> 
+
+<!-- This is where the routed content will be displayed -->
+<router-outlet></router-outlet>
+
