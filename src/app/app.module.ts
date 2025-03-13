@@ -8,6 +8,8 @@ import { LoginComponent } from './login/login.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { AdminLoginComponent } from './admin-login/admin-login.component';
 import { bootstrapApplication } from '@angular/platform-browser';
+import { RouterModule } from '@angular/router';  // Import RouterModule here
+
 @NgModule({
   imports: [
     AppComponent,
@@ -19,6 +21,7 @@ import { bootstrapApplication } from '@angular/platform-browser';
     CommonModule,  // Add CommonModule here
     FormsModule,  // Add FormsModule for two-way data binding
     NgModule,
+    RouterModule,
   ],
   providers: [],
 })

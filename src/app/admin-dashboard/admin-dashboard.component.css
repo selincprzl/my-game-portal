@@ -1,3 +1,10 @@
+
+
+/* Adjust dashboard container */
+.dashboard-container {
+  margin-top: 20px;  /* Add space below the navbar */
+}
+
 /* General Dashboard Layout */
 .dashboard-container {
   width: 80%;

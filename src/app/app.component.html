@@ -1,4 +1,13 @@
-<div>
-  <router-outlet></router-outlet>  <!-- This will display the routed components -->
-
+<!-- Navbar visible only in admin routes -->
+<div *ngIf="isAdminRoute()">
+  <div class="navbar">
+    <ul>
+      <li><a routerLink="/admin-dashboard" routerLinkActive="active">Administration</a></li>
+      <li><a routerLink="/admin-chat" routerLinkActive="active">Chat</a></li>
+      <li><a routerLink="/admin-games" routerLinkActive="active">Games</a></li>
+      <li><a routerLink="/admin-leaderboard" routerLinkActive="active">Leaderboard</a></li>
+    </ul>
+  </div>
 </div>
+
+<router-outlet></router-outlet> 

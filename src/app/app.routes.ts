@@ -6,6 +6,9 @@ import { AdminLoginComponent } from './admin-login/admin-login.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { AdminGuard } from './guards/admin.guard';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { AdminChatComponent } from './admin-chat/admin-chat.component';
+import { AdminGamesComponent } from './admin-games/admin-games.component'; 
+import { AdminLeaderboardComponent } from './admin-leaderboard/admin-leaderboard.component';
 
 
 export const routes: Routes = [
@@ -16,6 +19,11 @@ export const routes: Routes = [
   { path: 'admin-login', component: AdminLoginComponent},
   { path: 'admin-dashboard', component: AdminDashboardComponent, canActivate: [AdminGuard] },
   { path: 'dashboard', component: DashboardComponent },  // New route
+  { path: 'admin-chat', component: AdminChatComponent },  
+  { path: 'admin-games', component: AdminGamesComponent },  
+  { path: 'admin-leaderboard', component: AdminLeaderboardComponent },  
+
+
 
 
 

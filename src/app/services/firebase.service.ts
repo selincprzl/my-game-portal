@@ -24,7 +24,7 @@ export class FirebaseService {
       });
   }
 
-  // Save user data
+  // Save user data - creates the user table
   private saveUserData(uid: string, name: string, email: string, isAdmin: boolean): Promise<void> {
     return set(ref(database, 'users/' + uid), {
       name,

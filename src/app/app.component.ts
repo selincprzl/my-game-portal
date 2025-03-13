@@ -1,12 +1,25 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';  
+import { RouterModule } from '@angular/router';  // Import RouterModule
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  standalone: true,  // If you're using standalone components, make sure it's set to true
+  imports: [CommonModule, RouterModule],  // Add RouterModule here as well
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'my-game-portal';
+  constructor(private router: Router) {}
+
+  isAdminRoute(): boolean {
+    const adminRoutes = [
+      '/admin-dashboard',
+      '/admin-chat',
+      '/admin-games',
+      '/admin-leaderboard'
+    ];
+    return adminRoutes.includes(this.router.url);
+  }
 }
