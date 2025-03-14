@@ -1,12 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { Router } from '@angular/router';
 import { FirebaseService } from '../services/firebase.service';
 import { signInWithEmailAndPassword, getAuth } from 'firebase/auth';
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
   email: string = '';
