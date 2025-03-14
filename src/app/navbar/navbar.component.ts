@@ -7,7 +7,7 @@ import { RouterModule } from '@angular/router';
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
-  imports: [CommonModule,RouterModule],  // Add CommonModule here
+  imports: [CommonModule,RouterModule],  
   
 })
 export class NavbarComponent implements OnInit {
