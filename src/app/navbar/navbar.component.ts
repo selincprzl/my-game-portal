@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FirebaseService } from '../services/firebase.service'; // Update the path if necessary
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
-  imports: [CommonModule],  // Add CommonModule here
+  imports: [CommonModule,RouterModule],  // Add CommonModule here
   
 })
 export class NavbarComponent implements OnInit {

@@ -31,7 +31,6 @@ import { ChatComponent } from './chat/chat.component';
     LeaderboardComponent,
     HomeComponent,
     ChatComponent,
-    
   ],
   providers: [],
 })
