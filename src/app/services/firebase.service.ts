@@ -1,3 +1,4 @@
+// FirebaseService.ts
 import { Injectable } from '@angular/core';
 import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { getDatabase, ref, set, get, update } from 'firebase/database';
@@ -16,23 +17,36 @@ export class FirebaseService {
   currentUser: any = null;
 
   constructor() {
-    // Listen for auth state changes
     this.listenToAuthStateChanges();
   }
 
-  // Register user
-  registerUser(email: string, password: string, name: string): Promise<any> {
+  // ===============================
+  // User Management Functions
+  // ===============================
+
+  // Create user
+  registerUser(
+    email: string, 
+    password: string, 
+    name: string
+  ): Promise<any> {
     return createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
         const isAdmin = FirebaseService.isHardcodedAdmin(email);
-        return this.saveUserData(user.uid, name, email, isAdmin).then(() => ({ uid: user.uid, isAdmin })); 
+        return this.createUser(user.uid, name, email, isAdmin)
+          .then(() => ({ uid: user.uid, isAdmin }));
       });
   }
 
-  // Save user data
-  private saveUserData(uid: string, name: string, email: string, isAdmin: boolean): Promise<void> {
-    return set(ref(database, 'users/' + uid), {
+  // Create user in the database
+  createUser(
+    uid: string, 
+    name: string, 
+    email: string, 
+    isAdmin: boolean
+  ): Promise<void> {
+    return set(ref(database, `users/${uid}`), {
       name,
       email,
       isAdmin,
@@ -40,9 +54,52 @@ export class FirebaseService {
     });
   }
 
-  // Login user
+  // Check if user is an admin
+  checkIfAdmin(uid: string): Promise<boolean> {
+    const userRef = ref(database, `users/${uid}`);
+    return get(userRef).then((snapshot) => {
+      if (snapshot.exists()) {
+        const userData = snapshot.val();
+        return userData.isAdmin || false;
+      }
+      return false;
+    }).catch((error) => {
+      console.error('Error checking admin status:', error);
+      return false;
+    });
+  }
+
+  // Grant admin rights to a user
+  createAdminRights(uid: string): Promise<void> {
+    return update(ref(database, `users/${uid}`), { isAdmin: true });
+  }
+
+  // Revoke admin rights from a user
+  revokeAdminRights(uid: string): Promise<void> {
+    return update(ref(database, `users/${uid}`), { isAdmin: false });
+  }
+
+  // Delete user
+  deleteUser(uid: string): Promise<void> {
+    return set(ref(database, `users/${uid}`), null);
+  }
+
+  // Update user information
+  updateUser(
+    uid: string, 
+    updates: { name?: string; email?: string; isAdmin?: boolean }
+  ): Promise<void> {
+    return update(ref(database, `users/${uid}`), updates);
+  }
+
+  // Log in user
   loginUser(email: string, password: string): Promise<any> {
     return signInWithEmailAndPassword(auth, email, password);
+  }
+
+  // Log out user
+  logout(): Promise<void> {
+    return auth.signOut();
   }
 
   // Get all users
@@ -57,61 +114,100 @@ export class FirebaseService {
     });
   }
 
-  // Grant admin rights
-  grantAdminRights(uid: string): Promise<void> {
-    return update(ref(database, 'users/' + uid), { isAdmin: true });
-  }
+  // ================================
+  // Game, Highscore, and Forum Management
+  // ================================
 
-  // Check if user is an admin
-  checkIfAdmin(uid: string): Promise<boolean> {
-    const userRef = ref(database, 'users/' + uid);
-    return get(userRef).then((snapshot) => {
-      if (snapshot.exists()) {
-        const userData = snapshot.val();
-        return userData.isAdmin || false;
-      }
-      return false;
-    }).catch((error) => {
-      console.error('Error checking admin status:', error);
-      return false;
+  // Create a game
+  createGame(
+    gameId: string,
+    title: string,
+    description: string,
+    imageUrl: string,
+    netlifyUrl: string,
+    platform: string,
+    userId: string
+  ): Promise<void> {
+    return set(ref(database, `games/${gameId}`), {
+      title,
+      description,
+      imageUrl,
+      netlifyUrl,
+      platform,
+      users_Id: userId,
+      createdAt: new Date().toISOString()
     });
   }
 
-  // Listen for auth state changes
+  // Create a highscore
+  createHighscore(
+    highscoreId: string,
+    userId: string,
+    gameId: string,
+    score: number
+  ): Promise<void> {
+    return set(ref(database, `highscores/${highscoreId}`), {
+      users_Id: userId,
+      games_Id: gameId,
+      score,
+      createdAt: new Date().toISOString()
+    });
+  }
+
+  // Create a forum post
+  createForumPost(
+    forumId: string,
+    gameId: string,  // If the post is game-specific
+    userId: string,
+    message: string
+  ): Promise<void> {
+    return set(ref(database, `forums/${forumId}`), {
+      games_Id: gameId,
+      users_Id: userId,
+      message,
+      timestamp: new Date().toISOString()
+    });
+  }
+
+  // Create settings
+  createSettings(
+    settingsId: string,
+    userId: string,
+    navbarColor: string,
+    navbarFontColor: string,
+    backgroundColor: string
+  ): Promise<void> {
+    return set(ref(database, `settings/${settingsId}`), {
+      users_Id: userId,
+      navbarColor,
+      navbarFontColor,
+      backgroundColor
+    });
+  }
+
+  // Update settings
+  updateSettings(
+    settingsId: string,
+    updates: { navbarColor?: string; navbarFontColor?: string; backgroundColor?: string }
+  ): Promise<void> {
+    return update(ref(database, `settings/${settingsId}`), updates);
+  }
+
+  // Listen to authentication state changes
   private listenToAuthStateChanges() {
     onAuthStateChanged(auth, (user) => {
-      if (user) {
-        this.currentUser = user;
-      } else {
-        this.currentUser = null;
-      }
+      this.currentUser = user ? user : null;
     });
   }
 
-  // Get current logged-in user
+  // Get the current logged-in user
   getCurrentUser() {
     return this.currentUser;
   }
 
-  // Logout function
-  logout(): Promise<void> {
-    return auth.signOut();
-  }
-
-  // Hardcoded superuser
+  // Hardcoded admin check
   private static isHardcodedAdmin(email: string): boolean {
-    const adminEmails = ["selin@selin.dk"];
+    const adminEmails = ['selin@selin.dk'];
     return adminEmails.includes(email);
-  }
-
-  // Revoke admin rights
-  revokeAdminRights(uid: string): Promise<void> {
-    return update(ref(database, 'users/' + uid), { isAdmin: false });
-  }
-
-  // Delete user
-  deleteUser(uid: string): Promise<void> {
-    const userRef = ref(database, 'users/' + uid);
-    return set(userRef, null);  // This deletes the user from the database
   }
 }
